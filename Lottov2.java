@@ -1,7 +1,7 @@
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
-
 
 public class Lottov2 {
 
@@ -13,17 +13,17 @@ public class Lottov2 {
         Scanner input = new Scanner(System.in);
         System.out.println("Podaj własne liczby: ");
         int i =6;
-        int nr;;
+        int nr;
         while(i>0)
         {
             nr = input.nextInt();
-            if(nr > 1 && nr < 49)
+            if(nr >= 1 && nr < 49)
                 bit.add(nr);
             else
                 System.out.println("Podaj liczby z zakresu <1;49>: ");
             i--;
         }
-        System.out.println(bit);
+
         int trafienia = 0;
         int wygrana = 0;
         ArrayList<Integer> lista_wygrana = new ArrayList<>();
@@ -33,26 +33,26 @@ public class Lottov2 {
             ArrayList<Integer> lista = new ArrayList<>();
             Random random = new Random();
 
-            int b = 0;
-            while (b < 6)
+            for(int b = 0; b < 6; b++)
             {
                 int x = random.nextInt(49) + 1;
+
                 if (lista.contains(x)) {
-                    b = b;
-                } else
+                    b--;
+                }
+                else
+                {
                     lista.add(x);
-                b++;
+                }
             }
 
-            int a = 0;
-
-            while (a < 6)
+            for(int a = 0; a < 6; a++)
             {
                 for(int j = 0; j < 6; j++)
                 {
-                    if (bit.get(a) == lista.get(j))
+                    if (bit.get(a) == lista.get(j)) {
                         trafienia++;
-                    a++;
+                    }
                 }
 
             }
@@ -68,8 +68,8 @@ public class Lottov2 {
             }
 
         }
-        System.out.println(lista_wygrana);
-        System.out.println(bit);
+        System.out.println("Lista wylosowana: " + lista_wygrana);
+        System.out.println("Twoje strzały: " + bit);
         System.out.println("Liczba trafień: " + trafienia);
 
         long endTime = System.currentTimeMillis();
