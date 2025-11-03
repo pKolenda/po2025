@@ -12,11 +12,15 @@ public abstract class Komponent {
         this.cena = cena;
     }
 
-    public String getNazwa() {
+    public String getProducent() {
         return producent;
     }
 
-    public String getModel(String model) {
-        return model;
+    public int getWaga() {
+        return waga;
+    }
+
+    public int getCena() {
+        return cena;
     }
 }

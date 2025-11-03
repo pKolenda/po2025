@@ -1,5 +1,7 @@
 package symulator;
 
+import java.util.Scanner;
+
 public class SkrzyniaBiegow extends Komponent {
 
     int iloscBiegow = 6;
@@ -7,7 +9,20 @@ public class SkrzyniaBiegow extends Komponent {
 
     public SkrzyniaBiegow(String producent,  int waga, int cena) {
         super(producent, waga, cena);
-        Sprzeglo sprzeglo = new Sprzeglo();
+
+        String producentSprzegla;
+        int wagaSprzegla;
+        int cenaSprzegla;
+
+        Scanner input = new Scanner(System.in);
+        System.out.println("Podaj wagę sprzęgła: ");
+        wagaSprzegla = input.nextInt();
+        System.out.println("Podaj cenę sprzęgła: ");
+        cenaSprzegla = input.nextInt();
+        System.out.println("Podaj producenta sprzęgła: ");
+        producentSprzegla = input.next();
+        Sprzeglo sprzeglo = new Sprzeglo(producent, waga, cena);
+
         this.aktBieg = 0;
 
     }
@@ -31,8 +46,8 @@ public class SkrzyniaBiegow extends Komponent {
 
     }
 
-    public int aktBieg(){
-        return aktBieg;
+    public void aktBieg(){
+        System.out.println(aktBieg);
     }
 
 
