@@ -6,6 +6,7 @@
       <list>
         <option value="$PROJECT_DIR$/symulator/Symulator/pom.xml" />
         <option value="$PROJECT_DIR$/Auto/pom.xml" />
+        <option value="$PROJECT_DIR$/Auto/samochodGUI/pom.xml" />
       </list>
     </option>
   </component>
