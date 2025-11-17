@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" prefHeight="489.0" prefWidth="1085.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.samochodgui.HelloController">
+  <padding>
+    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+  </padding>
+   <BorderPane prefHeight="422.0" prefWidth="1045.0">
+      <left>
+         <Group BorderPane.alignment="CENTER">
+            <children>
+               <VBox prefHeight="200.0" prefWidth="145.0">
+                  <children>
+                     <ComboBox prefWidth="150.0" promptText="Komponent" />
+                     <ComboBox blendMode="DARKEN" prefHeight="26.0" prefWidth="150.0" promptText="Pozycja ">
+                        <cursor>
+                           <Cursor fx:constant="DEFAULT" />
+                        </cursor>
+                        <opaqueInsets>
+                           <Insets top="56.0" />
+                        </opaqueInsets>
+                     </ComboBox>
+                     <ComboBox prefWidth="150.0" promptText="Silnik " />
+                     <ComboBox prefWidth="150.0" promptText="Skrzynia Biegów " />
+                     <ComboBox prefWidth="150.0" promptText="Sprzęgło " />
+                  </children>
+               </VBox>
+            </children>
+         </Group>
+      </left>
+      <top>
+         <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <children>
+               <ColorPicker editable="true" />
+            </children>
+         </HBox>
+      </top>
+   </BorderPane>
+</VBox>
