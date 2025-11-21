@@ -4,10 +4,9 @@ public class Sprzeglo extends Komponent {
 
     boolean stan;
 
-    public Sprzeglo(String producent,  int waga, int cena) {
+    public Sprzeglo(String producent, int waga, int cena) {
         super(producent, waga, cena);
         this.stan = false;
-        System.out.println("Sprzęgło jest zwolnione");
     }
 
     public void wcisnij(){
@@ -18,7 +17,7 @@ public class Sprzeglo extends Komponent {
         stan = false;
     }
 
-    public boolean stan(){
+    public boolean getStan(){
         return stan;
     }
 

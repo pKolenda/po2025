@@ -10,14 +10,11 @@ public class Pozycja {
         y = 0.0;
     }
 
-    public void getPozycja() {
-        System.out.println("x: " + x);
-        System.out.println("y: " + y);
-    }
+    public double getX() { return x; }
+    public double getY() { return y; }
 
     public void Pozycja(double x1, double y1) {
-        x =+  x1;
-        y =+ y1;
+        x += x1;
+        y += y1;
     }
-
 }

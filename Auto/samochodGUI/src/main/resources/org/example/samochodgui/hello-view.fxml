@@ -1,43 +1,186 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
 
-<VBox alignment="CENTER" prefHeight="489.0" prefWidth="1085.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.samochodgui.HelloController">
-  <padding>
-    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-  </padding>
-   <BorderPane prefHeight="422.0" prefWidth="1045.0">
-      <left>
-         <Group BorderPane.alignment="CENTER">
+<BorderPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.samochodgui.HelloController">
+    <top>
+        <VBox BorderPane.alignment="CENTER">
+            <MenuBar>
+                <menus>
+                    <Menu mnemonicParsing="false" text="Plik">
+                        <items>
+                            <MenuItem mnemonicParsing="false" text="Otwórz" />
+                        </items>
+                    </Menu>
+                    <Menu mnemonicParsing="false" text="Edycja">
+                        <items>
+                            <MenuItem mnemonicParsing="false" text="Ustawienia" />
+                        </items>
+                    </Menu>
+                </menus>
+            </MenuBar>
+
+            <ToolBar>
+                <items>
+                    <Label text="Samochód" />
+                    <ComboBox prefWidth="150.0" promptText="Wybierz samochód" />
+                    <Button mnemonicParsing="false" text="Dodaj nowy" />
+                    <Button mnemonicParsing="false" text="Usuń" />
+                </items>
+            </ToolBar>
+        </VBox>
+    </top>
+
+    <left>
+        <VBox spacing="5.0" BorderPane.alignment="TOP_LEFT">
+            <padding>
+                <Insets left="5.0" right="5.0" />
+            </padding>
+
+            <TitledPane collapsible="false" text="Samochód">
+                <content>
+                    <VBox spacing="5.0">
+                        <GridPane hgap="5.0" vgap="5.0">
+                            <columnConstraints>
+                                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <children>
+                                <Label text="Model" GridPane.rowIndex="0" />
+                                <TextField fx:id="modelTextField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                <Label text="Nr rejestracyjny" GridPane.rowIndex="1" />
+                                <TextField fx:id="nrRejestracyjnyTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <Label text="Waga" GridPane.rowIndex="2" />
+                                <TextField fx:id="wagaSamochoduTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" editable="false" />
+                                <Label text="Prędkość" GridPane.rowIndex="3" />
+                                <TextField fx:id="predkoscTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" editable="false" />
+                            </children>
+                        </GridPane>
+                        <HBox alignment="CENTER" spacing="5.0" VBox.vgrow="NEVER">
+                            <Button mnemonicParsing="false" text="Włącz" onAction="#handleStartSamochod" />
+                            <Button mnemonicParsing="false" text="Wyłącz" onAction="#handleStopSamochod" />
+                            <Button mnemonicParsing="false" text="Button" />
+                            <padding>
+                                <Insets bottom="5.0" top="5.0" />
+                            </padding>
+                        </HBox>
+                    </VBox>
+                </content>
+            </TitledPane>
+
+            <TitledPane collapsible="false" text="Skrzynia Biegów">
+                <content>
+                    <VBox spacing="5.0">
+                        <GridPane hgap="5.0" vgap="5.0">
+                            <columnConstraints>
+                                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <children>
+                                <Label text="Nazwa/Producent" GridPane.rowIndex="0" />
+                                <TextField fx:id="sbProducentTextField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                <Label text="Cena" GridPane.rowIndex="1" />
+                                <TextField fx:id="sbCenaTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <Label text="Waga" GridPane.rowIndex="2" />
+                                <TextField fx:id="sbWagaTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                <Label text="Bieg" GridPane.rowIndex="3" />
+                                <TextField fx:id="sbAktBiegTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" editable="false" />
+                            </children>
+                        </GridPane>
+                        <HBox alignment="CENTER" spacing="5.0" VBox.vgrow="NEVER">
+                            <Button mnemonicParsing="false" text="Zwiększ bieg" onAction="#handleZwiekszBieg" />
+                            <Button mnemonicParsing="false" text="Zmniejsz bieg" onAction="#handleZmniejszBieg" />
+                            <padding>
+                                <Insets bottom="5.0" top="5.0" />
+                            </padding>
+                        </HBox>
+                    </VBox>
+                </content>
+            </TitledPane>
+
+            <TitledPane collapsible="false" text="Silnik">
+                <content>
+                    <VBox spacing="5.0">
+                        <GridPane hgap="5.0" vgap="5.0">
+                            <columnConstraints>
+                                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <children>
+                                <Label text="Nazwa/Producent" GridPane.rowIndex="0" />
+                                <TextField fx:id="sProducentTextField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                <Label text="Cena" GridPane.rowIndex="1" />
+                                <TextField fx:id="sCenaTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <Label text="Waga" GridPane.rowIndex="2" />
+                                <TextField fx:id="sWagaTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                <Label text="Obroty" GridPane.rowIndex="3" />
+                                <TextField fx:id="sObrotyTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" editable="false" />
+                            </children>
+                        </GridPane>
+                        <HBox alignment="CENTER" spacing="5.0" VBox.vgrow="NEVER">
+                            <Button mnemonicParsing="false" text="Dodaj gazu" onAction="#handleObrotyUp" />
+                            <Button mnemonicParsing="false" text="Ujmij gazu" onAction="#handleObrotyDown" />
+                            <padding>
+                                <Insets bottom="5.0" top="5.0" />
+                            </padding>
+                        </HBox>
+                    </VBox>
+                </content>
+            </TitledPane>
+
+            <TitledPane collapsible="false" text="Sprzęgło">
+                <content>
+                    <VBox spacing="5.0">
+                        <GridPane hgap="5.0" vgap="5.0">
+                            <columnConstraints>
+                                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <children>
+                                <Label text="Nazwa/Producent" GridPane.rowIndex="0" />
+                                <TextField fx:id="spProducentTextField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                <Label text="Cena" GridPane.rowIndex="1" />
+                                <TextField fx:id="spCenaTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <Label text="Waga" GridPane.rowIndex="2" />
+                                <TextField fx:id="spWagaTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                <Label text="Stan" GridPane.rowIndex="3" />
+                                <TextField fx:id="spStanTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" editable="false" />
+                            </children>
+                        </GridPane>
+                        <HBox alignment="CENTER" spacing="5.0" VBox.vgrow="NEVER">
+                            <Button mnemonicParsing="false" text="Naciśnij" onAction="#handleWcisnijSprzeglo" />
+                            <Button mnemonicParsing="false" text="Zwolnij" onAction="#handleZwolnijSprzeglo" />
+                            <padding>
+                                <Insets bottom="5.0" top="5.0" />
+                            </padding>
+                        </HBox>
+                    </VBox>
+                </content>
+            </TitledPane>
+        </VBox>
+    </left>
+
+    <center>
+        <VBox style="-fx-background-color: #A3D8A3;" BorderPane.alignment="TOP_LEFT">
+            <padding>
+                <Insets top="10.0" left="10.0" />
+            </padding>
             <children>
-               <VBox prefHeight="200.0" prefWidth="145.0">
-                  <children>
-                     <ComboBox prefWidth="150.0" promptText="Komponent" />
-                     <ComboBox blendMode="DARKEN" prefHeight="26.0" prefWidth="150.0" promptText="Pozycja ">
-                        <cursor>
-                           <Cursor fx:constant="DEFAULT" />
-                        </cursor>
-                        <opaqueInsets>
-                           <Insets top="56.0" />
-                        </opaqueInsets>
-                     </ComboBox>
-                     <ComboBox prefWidth="150.0" promptText="Silnik " />
-                     <ComboBox prefWidth="150.0" promptText="Skrzynia Biegów " />
-                     <ComboBox prefWidth="150.0" promptText="Sprzęgło " />
-                  </children>
-               </VBox>
+                <Label text="Mapa" />
+                <HBox alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
+                    <children>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@car.png" />
+                            </image>
+                        </ImageView>
+                        <Label text="Car" style="-fx-font-weight: bold;"/>
+                    </children>
+                </HBox>
             </children>
-         </Group>
-      </left>
-      <top>
-         <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-            <children>
-               <ColorPicker disable="true" editable="true" />
-            </children>
-         </HBox>
-      </top>
-   </BorderPane>
-</VBox>
+        </VBox>
+    </center>
+</BorderPane>
