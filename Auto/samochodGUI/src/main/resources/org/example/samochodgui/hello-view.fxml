@@ -28,7 +28,7 @@
                     <Label text="Samohud" />
                     <Button mnemonicParsing="false"  text="Zaimportuj samochód" onAction="#initializeSamochod"/>
                     <Button mnemonicParsing="false" text="Dodaj nowy" onAction="#handleOpenNewCarWindow" />
-                    <Button mnemonicParsing="false" text="Usuń" />
+                    <Button mnemonicParsing="false" text="Usuń" onAction="#clearWindow" />
                 </items>
             </ToolBar>
         </VBox>

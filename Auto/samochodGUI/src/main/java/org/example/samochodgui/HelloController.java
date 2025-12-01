@@ -40,7 +40,7 @@ public class HelloController {
     @FXML private TextField spCenaTextField;
     @FXML private TextField spWagaTextField;
     @FXML private TextField spStanTextField;
-    private Object Modality;
+
 
 
     @FXML
@@ -72,6 +72,7 @@ public class HelloController {
             stage.setTitle("Wprowadź nowy samochód");
 
             Stage primaryStage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            stage.initModality(javafx.stage.Modality.WINDOW_MODAL);
             stage.initOwner(primaryStage);
 
             stage.setScene(scene);
@@ -90,15 +91,34 @@ public class HelloController {
 
     }
 
-    public void loadNewCarFromParams(NewCarController.CarParams params) {
-        Silnik nowySilnik = new Silnik(params.silnikProd, params.silnikWaga, params.silnikCena);
+    private void loadNewCarFromParams(NewCarController.CarParams params) {
 
+        Sprzeglo noweSprzeglo = new Sprzeglo(
+                params.sprzegloProducent,
+                params.sprzegloWaga,
+                params.sprzegloCena
+        );
 
-        SkrzyniaBiegow nowaSkrzynia = new SkrzyniaBiegow(params.skrzyniaProducent, params.skrzyniaWaga, params.skrzyniaCena);
-        Sprzeglo noweSprzeglo = new Sprzeglo(params.sprzęgłoProducent, params.sprzęgłoWaga, params.sprzęgłoCena);
+        Silnik nowySilnik = new Silnik(
+                params.silnikProd,
+                params.silnikWaga,
+                params.silnikCena
+        );
+
+        SkrzyniaBiegow nowaSkrzynia = new SkrzyniaBiegow(
+                params.skrzyniaProducent,
+                params.skrzyniaWaga,
+                params.skrzyniaCena,
+                noweSprzeglo
+        );
+
         Pozycja nowaPozycja = new Pozycja();
 
-        currentCar = new Samochod(nowySilnik, nowaSkrzynia, noweSprzeglo, nowaPozycja);
+        currentCar = new Samochod(
+                nowySilnik,
+                nowaSkrzynia,
+                nowaPozycja
+        );
 
         modelTextField.setText(params.model);
         nrRejestracyjnyTextField.setText(params.rejestracja);
@@ -107,18 +127,17 @@ public class HelloController {
         sCenaTextField.setText(String.valueOf(params.silnikCena));
         sWagaTextField.setText(String.valueOf(params.silnikWaga));
 
-        spProducentTextField.setText(params.skrzyniaProducent);
-        spWagaTextField.setText(String.valueOf(params.skrzyniaWaga));
-        spCenaTextField.setText(String.valueOf(params.skrzyniaCena));
+        spProducentTextField.setText(noweSprzeglo.producent);
+        spCenaTextField.setText(String.valueOf(noweSprzeglo.cena));
+        spWagaTextField.setText(String.valueOf(noweSprzeglo.waga));
 
-        sbProducentTextField.setText(params.sprzęgłoProducent);
-        sbWagaTextField.setText(String.valueOf(params.sprzęgłoWaga));
-        sbCenaTextField.setText(String.valueOf(params.sprzęgłoCena));
+        sbProducentTextField.setText(params.skrzyniaProducent);
+        sbCenaTextField.setText(String.valueOf(params.skrzyniaCena));
+        sbWagaTextField.setText(String.valueOf(params.skrzyniaWaga));
 
         System.out.println("Załadowano nowy samochód: " + params.model);
         updateGuiStatus();
     }
-
 
     public void handleStartSamochod(ActionEvent event) {
         if (currentCar != null) {
@@ -189,7 +208,9 @@ public class HelloController {
             return;
         }
 
-        int totalWaga = currentCar.silnik.waga + currentCar.skrzynia.waga + currentCar.skrzynia.sprzeglo.waga;
+        int totalWaga = currentCar.silnik.waga +
+                currentCar.skrzynia.waga +
+                currentCar.skrzynia.sprzeglo.waga;
         wagaSamochoduTextField.setText(String.valueOf(totalWaga));
         predkoscTextField.setText("0");
 
@@ -209,5 +230,30 @@ public class HelloController {
         spProducentTextField.setText(currentCar.skrzynia.sprzeglo.producent);
         spCenaTextField.setText(String.valueOf(currentCar.skrzynia.sprzeglo.cena));
         spWagaTextField.setText(String.valueOf(currentCar.skrzynia.sprzeglo.waga));
+    }
+
+    public void clearWindow(ActionEvent actionEvent) {
+
+            modelTextField.clear();
+            nrRejestracyjnyTextField.clear();
+            wagaSamochoduTextField.clear();
+            predkoscTextField.clear();
+
+            sbProducentTextField.clear();
+            sbCenaTextField.clear();
+            sbWagaTextField.clear();
+            sbAktBiegTextField.clear();
+
+            sProducentTextField.clear();
+            sCenaTextField.clear();
+            sWagaTextField.clear();
+            sObrotyTextField.clear();
+
+            spProducentTextField.clear();
+            spCenaTextField.clear();
+            spWagaTextField.clear();
+            spStanTextField.clear();
+
+
     }
 }

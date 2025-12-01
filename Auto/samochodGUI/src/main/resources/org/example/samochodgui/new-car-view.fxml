@@ -34,28 +34,28 @@
 
         <Label text="Producent Silnika:" GridPane.rowIndex="5" />
         <TextField fx:id="inputSilnikProducent" text="BMW" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-        <Label text="Waga Silnika:" GridPane.rowIndex="5" />
+        <Label text="Waga Silnika:" GridPane.rowIndex="6" />
         <TextField fx:id="inputSilnikWaga" text="150" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-        <Label text="Cena Silnika:" GridPane.rowIndex="6" />
-        <TextField fx:id="inputSilnikCena" text="8000" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+        <Label text="Cena Silnika:" GridPane.rowIndex="7" />
+        <TextField fx:id="inputSilnikCena" text="8000" GridPane.columnIndex="1" GridPane.rowIndex="7" />
 
-        <Label style="-fx-font-weight: bold;" text="SKRZYNIA BIEGÓW" GridPane.rowIndex="8" />
+        <Label style="-fx-font-weight: bold;" text="SKRZYNIA BIEGÓW" GridPane.rowIndex="9" />
 
-        <Label text="Producent Skrzyni biegów:" GridPane.rowIndex="9" />
-        <TextField fx:id="inputSkrzyniaProducent" text="BMW" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-        <Label text="Waga Skrzyni Biegów:" GridPane.rowIndex="10" />
-        <TextField fx:id="inputSkrzyniaWaga" text="150" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-        <Label text="Cena Skrzyni Biegów:" GridPane.rowIndex="11" />
-        <TextField fx:id="inputSkrzyniaCena" text="800" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+        <Label text="Producent Skrzyni biegów:" GridPane.rowIndex="10" />
+        <TextField fx:id="inputSkrzyniaProducent" text="BMW" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+        <Label text="Waga Skrzyni Biegów:" GridPane.rowIndex="11" />
+        <TextField fx:id="inputSkrzyniaWaga" text="150" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+        <Label text="Cena Skrzyni Biegów:" GridPane.rowIndex="12" />
+        <TextField fx:id="inputSkrzyniaCena" text="800" GridPane.columnIndex="1" GridPane.rowIndex="12" />
 
-        <Label style="-fx-font-weight: bold;" text="SPRZĘGŁO" GridPane.rowIndex="13" />
+        <Label style="-fx-font-weight: bold;" text="SPRZĘGŁO" GridPane.rowIndex="14" />
 
-        <Label text="Producent Sprzęgła:" GridPane.rowIndex="14" />
-        <TextField fx:id="inputSprzęgłoProducent" text="BMW" GridPane.columnIndex="1" GridPane.rowIndex="14" />
-        <Label text="Waga Sprzęgła:" GridPane.rowIndex="15" />
-        <TextField fx:id="inputSprzęgłoWaga" text="150" GridPane.columnIndex="1" GridPane.rowIndex="15" />
-        <Label text="Cena Sprzęgła:" GridPane.rowIndex="16" />
-        <TextField fx:id="inputSprzęgłoCena" text="8000" GridPane.columnIndex="1" GridPane.rowIndex="16" />
+        <Label text="Producent Sprzegla:" GridPane.rowIndex="15" />
+        <TextField fx:id="inputSprzegloProducent" text="BMW" GridPane.columnIndex="1" GridPane.rowIndex="15" />
+        <Label text="Waga Sprzegla:" GridPane.rowIndex="16" />
+        <TextField fx:id="inputSprzegloWaga" text="150" GridPane.columnIndex="1" GridPane.rowIndex="16" />
+        <Label text="Cena Sprzegla:" GridPane.rowIndex="17" />
+        <TextField fx:id="inputSprzegloCena" text="8000" GridPane.columnIndex="1" GridPane.rowIndex="17" />
 
     </GridPane>
 
