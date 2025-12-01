@@ -25,9 +25,9 @@
 
             <ToolBar>
                 <items>
-                    <Label text="Samochód" />
-                    <ComboBox prefWidth="150.0" promptText="Wybierz samochód" />
-                    <Button mnemonicParsing="false" text="Dodaj nowy" />
+                    <Label text="Samohud" />
+                    <Button mnemonicParsing="false"  text="Zaimportuj samochód" onAction="#initializeSamochod"/>
+                    <Button mnemonicParsing="false" text="Dodaj nowy" onAction="#handleOpenNewCarWindow" />
                     <Button mnemonicParsing="false" text="Usuń" />
                 </items>
             </ToolBar>

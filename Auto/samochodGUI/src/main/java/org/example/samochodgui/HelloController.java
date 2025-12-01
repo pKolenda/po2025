@@ -2,12 +2,20 @@ package org.example.samochodgui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import symulator.Samochod;
 import symulator.Silnik;
 import symulator.SkrzyniaBiegow;
 import symulator.Sprzeglo;
 import symulator.Pozycja;
+import javafx.stage.Modality;
+
+import java.io.IOException;
+
 
 public class HelloController {
 
@@ -32,10 +40,11 @@ public class HelloController {
     @FXML private TextField spCenaTextField;
     @FXML private TextField spWagaTextField;
     @FXML private TextField spStanTextField;
+    private Object Modality;
 
 
     @FXML
-    public void initialize() {
+    public void initializeSamochod() {
 
         Sprzeglo sprzeglo = new Sprzeglo("Luk", 5, 200);
 
@@ -50,6 +59,63 @@ public class HelloController {
         modelTextField.setText("Sedan X");
         nrRejestracyjnyTextField.setText("KR12345");
 
+        updateGuiStatus();
+    }
+
+
+    @FXML
+    public void handleOpenNewCarWindow(ActionEvent event) throws IOException {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("new-car-view.fxml"));
+            Scene scene = new Scene(loader.load());
+
+            Stage stage = new Stage();
+            stage.setTitle("Wprowadź nowy samochód");
+
+            Stage primaryStage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            stage.initOwner(primaryStage);
+
+            stage.setScene(scene);
+
+
+            NewCarController controller = loader.getController();
+            controller.setDialogStage(stage);
+
+            stage.showAndWait();
+
+            if (controller.isOkClicked()) {
+                NewCarController.CarParams params = controller.getCarParams();
+                loadNewCarFromParams(params);
+            }
+
+
+    }
+
+    public void loadNewCarFromParams(NewCarController.CarParams params) {
+        Silnik nowySilnik = new Silnik(params.silnikProd, params.silnikWaga, params.silnikCena);
+
+
+        SkrzyniaBiegow nowaSkrzynia = new SkrzyniaBiegow(params.skrzyniaProducent, params.skrzyniaWaga, params.skrzyniaCena);
+        Sprzeglo noweSprzeglo = new Sprzeglo(params.sprzęgłoProducent, params.sprzęgłoWaga, params.sprzęgłoCena);
+        Pozycja nowaPozycja = new Pozycja();
+
+        currentCar = new Samochod(nowySilnik, nowaSkrzynia, noweSprzeglo, nowaPozycja);
+
+        modelTextField.setText(params.model);
+        nrRejestracyjnyTextField.setText(params.rejestracja);
+
+        sProducentTextField.setText(params.silnikProd);
+        sCenaTextField.setText(String.valueOf(params.silnikCena));
+        sWagaTextField.setText(String.valueOf(params.silnikWaga));
+
+        spProducentTextField.setText(params.skrzyniaProducent);
+        spWagaTextField.setText(String.valueOf(params.skrzyniaWaga));
+        spCenaTextField.setText(String.valueOf(params.skrzyniaCena));
+
+        sbProducentTextField.setText(params.sprzęgłoProducent);
+        sbWagaTextField.setText(String.valueOf(params.sprzęgłoWaga));
+        sbCenaTextField.setText(String.valueOf(params.sprzęgłoCena));
+
+        System.out.println("Załadowano nowy samochód: " + params.model);
         updateGuiStatus();
     }
 
