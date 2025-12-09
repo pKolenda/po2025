@@ -5,11 +5,8 @@ public class Samochod {
     public Silnik silnik;
     public SkrzyniaBiegow skrzynia;
     public Pozycja pozycja;
-
-    // Pola dodane dla danych z GUI
-    public String model = "";
-    public String nrRejestracyjny = "";
-    public int waga = 0; // Waga bazowa (karoserii)
+    private String model;
+    private String nrRejestracyjny;
 
     public Samochod(Silnik silnik, SkrzyniaBiegow skrzynia, Pozycja pozycja) {
         this.silnik = silnik;
@@ -17,24 +14,10 @@ public class Samochod {
         this.pozycja = pozycja;
     }
 
-    // --- SETTERY (Te metody są wywoływane w NewCarController) ---
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    public void setNrRejestracyjny(String nrRejestracyjny) {
-        this.nrRejestracyjny = nrRejestracyjny;
-    }
-
-    public void setWaga(int waga) {
-        this.waga = waga;
-    }
-    // ------------------------------------------------
-
-    // Metoda obliczająca masę całkowitą (Baza + Podzespoły)
-    public int getWagaCalkowita() {
-        return this.waga + this.silnik.waga + this.skrzynia.waga + this.skrzynia.sprzeglo.waga;
-    }
+    public String getModel() { return model; }
+    public void setModel(String model) { this.model = model; }
+    public String getNrRejestracyjny() { return nrRejestracyjny; }
+    public void setNrRejestracyjny(String nrRejestracyjny) { this.nrRejestracyjny = nrRejestracyjny; }
 
     public void start(){
         silnik.start();
@@ -50,4 +33,5 @@ public class Samochod {
         pozycja.x += nowy_x;
         pozycja.y += nowy_y;
     }
+
 }

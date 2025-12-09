@@ -27,8 +27,6 @@
         <Label text="Nr rejestracyjny:" GridPane.rowIndex="1" />
         <TextField fx:id="inputRejestracja" promptText="np. KR00000" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-       <Label text="Waga podwozia:" GridPane.rowIndex="2" />
-         <TextField fx:id="inputwaga" promptText="np. 1500" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
         <Label style="-fx-font-weight: bold;" text="SILNIK" GridPane.rowIndex="4" />
 

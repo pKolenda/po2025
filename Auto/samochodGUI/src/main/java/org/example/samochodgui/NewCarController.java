@@ -11,31 +11,25 @@ import symulator.Pozycja;
 
 public class NewCarController {
 
-    // Pola samochodu
     @FXML private TextField inputModel;
     @FXML private TextField inputRejestracja;
-    @FXML private TextField inputwaga; // Waga nadwozia (bazowa)
-
-    // Pola silnika
     @FXML private TextField inputSilnikProducent;
     @FXML private TextField inputSilnikWaga;
     @FXML private TextField inputSilnikCena;
-
-    // Pola skrzyni
     @FXML private TextField inputSkrzyniaProducent;
     @FXML private TextField inputSkrzyniaWaga;
     @FXML private TextField inputSkrzyniaCena;
 
-    // Pola sprzęgła
     @FXML private TextField inputSprzegloProducent;
     @FXML private TextField inputSprzegloWaga;
     @FXML private TextField inputSprzegloCena;
+    //@FXML private TextField inputwaga;
+    private Samochod nowySamochod;
 
     private Stage dialogStage;
     private boolean isOkClicked = false;
 
-    // Pole przechowujące gotowy, zbudowany obiekt Samochod
-    private Samochod newCar;
+
 
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
@@ -45,57 +39,57 @@ public class NewCarController {
         return isOkClicked;
     }
 
-    // Metoda udostępniająca gotowy obiekt głównemu kontrolerowi
     public Samochod getNewCar() {
-        return newCar;
+        return nowySamochod;
     }
+
 
     @FXML
     private void handleSave() {
-        if (isInputValid()) {
-            try {
-                // 1. Tworzenie Sprzęgła (dane prosto z pól tekstowych)
+
+        try {
+            if (isInputValid()) {
+
+                int silnikWaga = Integer.parseInt(inputSilnikWaga.getText());
+                int silnikCena = Integer.parseInt(inputSilnikCena.getText());
+                int skrzyniaWaga = Integer.parseInt(inputSkrzyniaWaga.getText());
+                int skrzyniaCena = Integer.parseInt(inputSkrzyniaCena.getText());
+                int sprzegloWaga = Integer.parseInt(inputSprzegloWaga.getText());
+                int sprzegloCena = Integer.parseInt(inputSprzegloCena.getText());
+
                 Sprzeglo sprzeglo = new Sprzeglo(
                         inputSprzegloProducent.getText(),
-                        Integer.parseInt(inputSprzegloWaga.getText()),
-                        Integer.parseInt(inputSprzegloCena.getText())
+                        sprzegloWaga,
+                        sprzegloCena
                 );
 
-                // 2. Tworzenie Silnika
                 Silnik silnik = new Silnik(
                         inputSilnikProducent.getText(),
-                        Integer.parseInt(inputSilnikWaga.getText()),
-                        Integer.parseInt(inputSilnikCena.getText())
+                        silnikWaga,
+                        silnikCena
                 );
 
-                // 3. Tworzenie Skrzyni Biegów (wymaga obiektu sprzęgła)
                 SkrzyniaBiegow skrzynia = new SkrzyniaBiegow(
                         inputSkrzyniaProducent.getText(),
-                        Integer.parseInt(inputSkrzyniaWaga.getText()),
-                        Integer.parseInt(inputSkrzyniaCena.getText()),
+                        skrzyniaWaga,
+                        skrzyniaCena,
                         sprzeglo
                 );
 
-                // 4. Tworzenie Pozycji
                 Pozycja pozycja = new Pozycja();
 
-                // 5. Tworzenie głównego obiektu Samochod
-                // Używamy konstruktora, który przyjmuje podzespoły
-                newCar = new Samochod(silnik, skrzynia, pozycja);
+                Samochod samochod = new Samochod(silnik, skrzynia, pozycja);
 
-                // Uzupełnienie danych specyficznych dla samochodu (Model, Rejestracja, Waga Bazowa)
-                // Wymaga setterów lub publicznych pól w klasie Samochod
-                newCar.setModel(inputModel.getText());
-                newCar.setNrRejestracyjny(inputRejestracja.getText());
-                newCar.setWaga(Integer.parseInt(inputwaga.getText()));
+                samochod.setModel(inputModel.getText());
+                samochod.setNrRejestracyjny(inputRejestracja.getText());
+
+                nowySamochod = samochod;
 
                 isOkClicked = true;
                 dialogStage.close();
-
-            } catch (NumberFormatException e) {
-                System.err.println("Błąd formatu liczby: " + e.getMessage());
-                // Tutaj można dodać Alert dla użytkownika
             }
+        } catch (NumberFormatException e) {
+            System.err.println("Błąd: Wprowadzone Wagi/Ceny nie są liczbami całkowitymi. " + e.getMessage());
         }
     }
 
@@ -105,10 +99,22 @@ public class NewCarController {
     }
 
     private boolean isInputValid() {
-        // Prosta walidacja czy kluczowe pola nie są puste
-        // Warto rozszerzyć o wszystkie pola
-        return !inputModel.getText().isEmpty() &&
-                !inputwaga.getText().isEmpty() &&
-                !inputSilnikWaga.getText().isEmpty();
+        if (inputModel.getText() == null || inputModel.getText().isEmpty() ||
+                inputRejestracja.getText() == null || inputRejestracja.getText().isEmpty() ||
+                inputSilnikProducent.getText() == null || inputSilnikProducent.getText().isEmpty() ||
+                inputSilnikWaga.getText() == null || inputSilnikWaga.getText().isEmpty() ||
+                inputSilnikCena.getText() == null || inputSilnikCena.getText().isEmpty() ||
+                inputSkrzyniaProducent.getText() == null || inputSkrzyniaProducent.getText().isEmpty() ||
+                inputSkrzyniaWaga.getText() == null || inputSkrzyniaWaga.getText().isEmpty() ||
+                inputSkrzyniaCena.getText() == null || inputSkrzyniaCena.getText().isEmpty() ||
+                inputSprzegloProducent.getText() == null || inputSprzegloProducent.getText().isEmpty() ||
+                inputSprzegloWaga.getText() == null || inputSprzegloWaga.getText().isEmpty() ||
+                inputSprzegloCena.getText() == null || inputSprzegloCena.getText().isEmpty()
+        )
+        {
+            System.out.println("Błąd: Wypełnij wszystkie pola!");
+            return false;
+        }
+        return true;
     }
 }
