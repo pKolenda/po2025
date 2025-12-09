@@ -10,11 +10,14 @@ public class Pozycja {
         y = 0.0;
     }
 
-    public double getX() { return x; }
-    public double getY() { return y; }
+    public void setPozycja(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
 
     public void Pozycja(double x1, double y1) {
         x += x1;
         y += y1;
     }
+
 }
