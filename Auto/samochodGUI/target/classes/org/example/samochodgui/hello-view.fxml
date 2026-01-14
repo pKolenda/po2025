@@ -148,11 +148,29 @@
                     </VBox>
                 </content>
             </TitledPane>
+            <TitledPane collapsible="false" text="Pozycjia">
+                <content>
+                    <VBox spacing="5.0">
+                        <GridPane hgap="5.0" vgap="5.0">
+                            <columnConstraints>
+                                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <children>
+                                <Label text="X:" GridPane.rowIndex="1" />
+                                <TextField fx:id="pozycjaX" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <Label text="Y:" GridPane.rowIndex="2" />
+                                <TextField fx:id="pozycjaY" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                            </children>
+                        </GridPane>
+                    </VBox>
+                </content>
+            </TitledPane>
         </VBox>
     </left>
 
     <center>
-        <VBox style="-fx-background-color: #A3D8A3;" BorderPane.alignment="TOP_LEFT">
+        <AnchorPane fx:id="mapa" style="-fx-background-color: #A3D8A3;" BorderPane.alignment="TOP_LEFT">
             <padding>
                 <Insets top="10.0" left="10.0" />
             </padding>
@@ -160,7 +178,7 @@
                 <Label text="Mapa" />
                 <HBox alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
                     <children>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="carIcon" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@car.png" />
                             </image>
@@ -169,6 +187,6 @@
                     </children>
                 </HBox>
             </children>
-        </VBox>
+        </AnchorPane>
     </center>
 </BorderPane>

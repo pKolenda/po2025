@@ -1,26 +1,26 @@
 package org.example.samochodgui;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import symulator.Samochod;
-import symulator.Silnik;
-import symulator.SkrzyniaBiegow;
-import symulator.Sprzeglo;
-import symulator.Pozycja;
+import symulator.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
+import javafx.scene.image.ImageView;
 
 import java.io.IOException;
 
 
-public class HelloController {
+public class HelloController implements Listener{
 
     private Samochod currentCar;
 
@@ -44,8 +44,11 @@ public class HelloController {
     @FXML private TextField spWagaTextField;
     @FXML private TextField spStanTextField;
 
+    @FXML private TextField pozycjaX;
+    @FXML private TextField pozycjaY;
 
-
+    @FXML private AnchorPane mapa;
+    @FXML private ImageView carIcon;
 
     @FXML
     public void initialize() {
@@ -63,6 +66,12 @@ public class HelloController {
                     System.out.println("Wybrano samochód: " + selected.getModel());
                 }
             }
+        });
+        mapa.setOnMouseClicked(event -> {
+            double x = event.getX();
+            double y = event.getY();
+            Pozycja nowaPozycja = new Pozycja(x, y);
+            currentCar.Go(nowaPozycja);
         });
     }
 
@@ -87,6 +96,7 @@ public class HelloController {
         nrRejestracyjnyTextField.setText(defaultCar.getNrRejestracyjny());
 
         updateGuiStatus();
+        defaultCar.addListener(this);
     }
 
 
@@ -148,20 +158,20 @@ public class HelloController {
 
         System.out.println("Załadowano nowy samochód: " + currentCar.getModel());
         updateGuiStatus();
+        currentCar.addListener(this);
+        update();
     }
 
     public void handleStartSamochod(ActionEvent event) {
         if (currentCar != null) {
-            currentCar.start();
-            System.out.println("Samochód: Włączono silnik i ustawiono 1. bieg.");
+            currentCar.wlacz();
             updateGuiStatus();
         }
     }
 
     public void handleStopSamochod(ActionEvent event) {
         if (currentCar != null) {
-            currentCar.stop();
-            System.out.println("Samochód: Wyłączono silnik i ustawiono 0. bieg.");
+            currentCar.wylacz();
             updateGuiStatus();
         }
     }
@@ -169,7 +179,6 @@ public class HelloController {
     public void handleZwiekszBieg(ActionEvent event) {
         if (currentCar != null) {
             currentCar.skrzynia.zwiekszBieg();
-            System.out.println("Skrzynia: Zwiększono bieg.");
             updateGuiStatus();
         }
     }
@@ -177,7 +186,6 @@ public class HelloController {
     public void handleZmniejszBieg(ActionEvent event) {
         if (currentCar != null) {
             currentCar.skrzynia.zmniejszBieg();
-            System.out.println("Skrzynia: Zmniejszono bieg.");
             updateGuiStatus();
         }
     }
@@ -185,7 +193,6 @@ public class HelloController {
     public void handleObrotyUp(ActionEvent event) {
         if (currentCar != null) {
             currentCar.silnik.up();
-            System.out.println("Silnik: Dodano gazu (obroty +1000).");
             updateGuiStatus();
         }
     }
@@ -193,7 +200,6 @@ public class HelloController {
     public void handleObrotyDown(ActionEvent event) {
         if (currentCar != null) {
             currentCar.silnik.down();
-            System.out.println("Silnik: Ujęto gazu (obroty -1000).");
             updateGuiStatus();
         }
     }
@@ -201,7 +207,6 @@ public class HelloController {
     public void handleWcisnijSprzeglo(ActionEvent event) {
         if (currentCar != null) {
             currentCar.skrzynia.sprzeglo.wcisnij();
-            System.out.println("Sprzęgło: Wciśnięte.");
             updateGuiStatus();
         }
     }
@@ -209,7 +214,6 @@ public class HelloController {
     public void handleZwolnijSprzeglo(ActionEvent event) {
         if (currentCar != null) {
             currentCar.skrzynia.sprzeglo.zwolnij();
-            System.out.println("Sprzęgło: Zwolnione.");
             updateGuiStatus();
         }
     }
@@ -244,6 +248,11 @@ public class HelloController {
         spProducentTextField.setText(currentCar.skrzynia.sprzeglo.producent);
         spCenaTextField.setText(String.valueOf(currentCar.skrzynia.sprzeglo.cena));
         spWagaTextField.setText(String.valueOf(currentCar.skrzynia.sprzeglo.waga));
+
+        pozycjaX.setText(String.valueOf(currentCar.pozycja.getX()));
+        pozycjaY.setText(String.valueOf(currentCar.pozycja.getY()));
+        update();
+
     }
 
     private void clearAllTextFields() {
@@ -266,6 +275,9 @@ public class HelloController {
         spCenaTextField.clear();
         spWagaTextField.clear();
         spStanTextField.clear();
+
+        pozycjaX.clear();
+        pozycjaY.clear();
     }
 
 
@@ -292,5 +304,18 @@ public class HelloController {
             clearAllTextFields();
             System.out.println("Nie wybrano samochodu do usunięcia.");
         }
+        update();
     }
+
+    @Override
+    public void update() {
+        Platform.runLater(() -> {
+            if (currentCar != null && carIcon != null) {
+                carIcon.setTranslateX(currentCar.pozycja.x);
+                carIcon.setTranslateY(currentCar.pozycja.y);
+                updateGuiStatus();
+            }
+        });
+    }
+
 }

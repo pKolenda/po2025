@@ -1,8 +1,9 @@
 package symulator;
 
 public class Sprzeglo extends Komponent {
-
     boolean stan;
+    private Silnik silnik;
+
 
     public Sprzeglo(String producent, int waga, int cena) {
         super(producent, waga, cena);
@@ -10,15 +11,31 @@ public class Sprzeglo extends Komponent {
     }
 
     public void wcisnij(){
-        stan = true;
+        if(silnik.obroty > 0) {
+            stan = true;
+            System.out.println("Sprzęgło: Wciśnięte.");
+        }
+        else{
+            System.out.println("silnik nie jest wlaczony");
+        }
     }
 
     public void zwolnij(){
-        stan = false;
+        if(silnik.obroty > 0) {
+            stan = false;
+            System.out.println("Sprzęgło: Zwolnione.");
+        }
+        else{
+            System.out.println("silnik nie jest wlaczony");
+        }
     }
 
     public boolean getStan(){
         return stan;
+    }
+
+    public void setSilnik(Silnik silnik){
+        this.silnik = silnik;
     }
 
 }

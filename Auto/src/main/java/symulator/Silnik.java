@@ -12,10 +12,13 @@ public class Silnik extends Komponent {
 
     public void start(){
         obroty = 1000;
+        System.out.println("Samochód: Włączono silnik i ustawiono 1. bieg.");
     }
 
     public void stop(){
         obroty = 0;
+        System.out.println("Samochód: Wyłączono silnik i ustawiono 0. bieg.");
+
     }
 
     public int getObroty(){
@@ -23,18 +26,28 @@ public class Silnik extends Komponent {
     }
 
     public void up(){
-        if((obroty + 1000) < maxObroty) {
-            obroty = obroty + 1000;
+        if(obroty != 0) {
+            if (obroty < maxObroty) {
+                obroty = obroty + 1000;
+            } else {
+                System.out.println("Masz max obroty");
+            }
+        }
+        else{
+            System.out.println("Samochod nie jest wlaczony");
         }
     }
 
     public void down(){
-        if((obroty - 1000) > 1000) {
-            obroty = obroty - 1000;
-        } else if (obroty == 1000) {
-
-        } else {
-            obroty = 1000;
+        if(obroty != 0) {
+            if (obroty > 1000) {
+                obroty = obroty - 1000;
+            } else {
+                System.out.println("Masz min obroty");
+            }
+        }
+        else{
+            System.out.println("Samochod nie jest wlaczony");
         }
     }
 

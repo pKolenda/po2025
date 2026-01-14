@@ -13,14 +13,30 @@ public class SkrzyniaBiegow extends Komponent {
     }
 
     public void zwiekszBieg(){
-        if(aktBieg < iloscBiegow){
-            aktBieg++;
+        if(sprzeglo.getStan()) {
+            if (aktBieg < iloscBiegow) {
+                aktBieg++;
+                System.out.println("Zwiększono bieg");
+            } else {
+                System.out.println("Masz max bieg");
+            }
+        }
+        else{
+            System.out.println("Wcisnij sprzeglo");
         }
     }
 
     public void zmniejszBieg(){
-        if(aktBieg > 1){
-            aktBieg--;
+        if(sprzeglo.getStan()) {
+            if (aktBieg > 1) {
+                aktBieg--;
+                System.out.println("Zmniejszono bieg");
+            } else {
+                System.out.println("Masz min bieg");
+            }
+        }
+        else{
+            System.out.println("Wcisnij sprzeglo");
         }
     }
 

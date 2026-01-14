@@ -10,6 +10,11 @@ public class Pozycja {
         y = 0.0;
     }
 
+    public Pozycja(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
+
     public void setPozycja(double x, double y) {
         this.x = x;
         this.y = y;
@@ -20,4 +25,11 @@ public class Pozycja {
         y += y1;
     }
 
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
 }
