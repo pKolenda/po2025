@@ -19,11 +19,9 @@ public class NewCarController {
     @FXML private TextField inputSkrzyniaProducent;
     @FXML private TextField inputSkrzyniaWaga;
     @FXML private TextField inputSkrzyniaCena;
-
     @FXML private TextField inputSprzegloProducent;
     @FXML private TextField inputSprzegloWaga;
     @FXML private TextField inputSprzegloCena;
-    //@FXML private TextField inputwaga;
     private Samochod nowySamochod;
 
     private Stage dialogStage;
