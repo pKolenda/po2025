@@ -1,0 +1,220 @@
+@startuml
+skinparam packageStyle rectangle
+skinparam classAttributeIconSize 0
+
+package "org.example.blackjack.model" as model {
+
+  class Card {
+    - Suit suit
+    - Rank rank
+    + Suit getSuit()
+    + Rank getRank()
+    + String toString()
+  }
+
+  enum Suit {
+    CLUBS
+    DIAMONDS
+    HEARTS
+    SPADES
+  }
+
+  enum Rank {
+    TWO
+    THREE
+    FOUR
+    FIVE
+    SIX
+    SEVEN
+    EIGHT
+    NINE
+    TEN
+    JACK
+    QUEEN
+    KING
+    ACE
+    --
+    - int minValue
+    + int getMinValue()
+    + boolean isAce()
+  }
+
+  class Hand {
+    - List<Card> cards
+    + void add(Card)
+    + void clear()
+    + List<Card> getCards()
+    + int bestValue()
+    + boolean isBust()
+    + boolean isBlackjack()
+  }
+
+  class Deck {
+    - List<Card> cards
+    + Deck()
+    + void reset()
+    + void shuffle()
+    + Card draw()
+    + int size()
+  }
+
+  class Chips {
+    - int balance
+    + int getBalance()
+    + void setBalance(int)
+    + void add(int)
+    + void subtract(int)
+  }
+
+  class Bet {
+    - int amount
+    + int getAmount()
+  }
+
+  class Player {
+    - Hand hand
+    - Chips chips
+    + Player(int startingChips)
+    + Hand getHand()
+    + Chips getChips()
+    + void newRound()
+  }
+
+  class Dealer {
+    - Hand hand
+    + Hand getHand()
+    + void newRound()
+  }
+}
+
+package "org.example.blackjack.engine" as engine {
+  enum GameState {
+    WAITING_FOR_BET
+    PLAYER_TURN
+    DEALER_TURN
+    ROUND_OVER
+  }
+
+  enum RoundResult {
+    PLAYER_WIN
+    DEALER_WIN
+    PUSH
+  }
+
+  class BlackJackRules {
+    + void dealerPlay(Dealer, Deck)
+    + RoundResult decide(Player, Dealer)
+  }
+
+  class GameEngine {
+    - Deck deck
+    - Player player
+    - Dealer dealer
+    - BlackJackRules rules
+    - GameState state
+    - Bet currentBet
+    - RoundResult lastResult
+    - String message
+    + void placeBet(int)
+    + void deal()
+    + void hit()
+    + void stand()
+    - void settlePayout()
+    + Player getPlayer()
+    + Dealer getDealer()
+    + GameState getState()
+    + RoundResult getLastResult()
+    + String getMessage()
+    + Bet getCurrentBet()
+  }
+}
+
+package "org.example.blackjack.db" as db {
+  class DatabaseManager {
+    - static String URL
+    + DatabaseManager()
+    + int getBalance(String)
+    + void saveOrUpdateUser(String, int)
+  }
+}
+
+package "org.example.blackjack.ui.controller" as ui {
+  class WelcomeController {
+    - TextField usernameField
+    - Stage stage
+    - DatabaseManager db
+    + void setStage(Stage)
+    + void onEnterCasino()
+  }
+
+  class TableController {
+    - GameEngine gameEngine
+    - int currentBetValue
+    - String loggedUser
+    - String forcedResultTitle
+    + void initialize()
+    + void setLoggedUser(String)
+    + void initializePlayerBalance(int)
+    + void handleStartRound()
+    + void handleHit()
+    + void handleStand()
+    + void handleNewRound()
+    - void updateUI()
+    - void handleRoundOver()
+  }
+
+  class GameOverController {
+    + void onQuit()
+  }
+}
+
+package "org.example.blackjack.ui" as app {
+  class MainAPP {
+    + void start(Stage)
+    + static void main(String[])
+  }
+
+  class Launcher {
+    + static void main(String[])
+  }
+}
+
+' ===== relacje =====
+model.Card --> model.Suit
+model.Card --> model.Rank
+
+model.Hand "1" o-- "*" model.Card
+model.Deck "1" o-- "*" model.Card
+model.Deck --> model.Suit
+model.Deck --> model.Rank
+
+model.Player *-- model.Hand
+model.Player *-- model.Chips
+model.Dealer *-- model.Hand
+engine.GameEngine --> model.Bet
+
+engine.GameEngine *-- model.Deck
+engine.GameEngine *-- model.Player
+engine.GameEngine *-- model.Dealer
+engine.GameEngine *-- engine.BlackJackRules
+engine.GameEngine --> engine.GameState
+engine.GameEngine --> engine.RoundResult
+
+engine.BlackJackRules --> model.Dealer
+engine.BlackJackRules --> model.Deck
+engine.BlackJackRules --> model.Player
+engine.BlackJackRules --> model.Hand
+engine.BlackJackRules --> engine.RoundResult
+
+ui.WelcomeController --> db.DatabaseManager
+ui.WelcomeController --> ui.TableController : loads FXML + controller
+
+ui.TableController *-- engine.GameEngine
+ui.TableController --> db.DatabaseManager : save balance
+
+app.MainAPP --> ui.WelcomeController : sets Stage
+app.Launcher --> app.MainAPP
+
+hide methods
+hide members
+@enduml

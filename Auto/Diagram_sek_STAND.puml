@@ -1,0 +1,35 @@
+@startuml
+actor User
+participant "TableController" as TC
+participant "GameEngine" as GE
+participant "BlackJackRules" as Rules
+participant Dealer
+participant Deck
+participant "DatabaseManager" as DB
+
+User -> TC: STAND
+TC -> TC: disable Hit/Stand
+TC -> GE: stand()
+
+GE -> GE: state=DEALER_TURN
+GE -> Rules: dealerPlay(Dealer, Deck)
+
+loop dealer < 17
+  Rules -> Dealer: getHand().bestValue()
+  Rules -> Deck: draw()
+  Rules -> Dealer: hand.add(card)
+end
+
+GE -> Rules: decide(Player, Dealer)
+Rules --> GE: lastResult
+
+GE -> GE: settlePayout()\n(message + chips.add)
+GE -> GE: state=ROUND_OVER\ncurrentBet=null
+
+TC -> TC: updateUI()\n(pokaż wszystkie karty dealera\n+ punkty)
+
+TC -> TC: PauseTransition(0.95s)
+TC -> TC: handleRoundOver()
+TC -> DB: saveOrUpdateUser(username, finalBalance)
+TC -> TC: showResult(overlay)
+@enduml

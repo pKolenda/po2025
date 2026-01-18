@@ -1,0 +1,36 @@
+@startuml
+actor User
+participant "TableController" as TC
+participant "GameEngine" as GE
+participant Player
+participant Dealer
+participant Deck
+
+User -> TC: klik żeton (np. +25)
+TC -> TC: addBet(25)\ncurrentBetValue += 25
+
+User -> TC: klik START
+TC -> GE: placeBet(currentBetValue)
+TC -> GE: deal()
+
+GE -> Player: chips.subtract(bet)
+GE -> Player: newRound()
+GE -> Dealer: newRound()
+
+GE -> Deck: draw()
+GE -> Player: hand.add(card)
+GE -> Deck: draw()
+GE -> Dealer: hand.add(card)
+GE -> Deck: draw()
+GE -> Player: hand.add(card)
+GE -> Deck: draw()
+GE -> Dealer: hand.add(card)
+
+GE -> GE: state=PLAYER_TURN\nmessage="Twoja tura"
+
+TC -> TC: updateUI()\n(pokaż 2 karty gracza,\n1 karta dealera + back)
+
+alt natychmiastowy blackjack (2 karty)
+  GE -> GE: stand()
+end
+@enduml

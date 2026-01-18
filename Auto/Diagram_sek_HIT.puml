@@ -1,0 +1,24 @@
+@startuml
+actor User
+participant "TableController" as TC
+participant "GameEngine" as GE
+participant Deck
+participant Player
+
+User -> TC: HIT
+TC -> GE: hit()
+GE -> Deck: draw()
+GE -> Player: hand.add(card)
+
+alt bust
+  GE -> GE: state=ROUND_OVER\nlastResult=DEALER_WIN\nmessage="Bust!"
+end
+
+TC -> TC: updateUI()
+
+alt (state==ROUND_OVER) albo (playerValue==21)
+  TC -> TC: disable Hit/Stand
+  TC -> TC: PauseTransition(0.95s)
+  TC -> TC: handleRoundOver()
+end
+@enduml
