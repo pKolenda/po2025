@@ -1,6 +1,8 @@
 package org.example.samochodgui;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import symulator.Samochod;
@@ -13,7 +15,7 @@ public class NewCarController {
 
     @FXML private TextField inputModel;
     @FXML private TextField inputRejestracja;
-    @FXML private TextField inputSilnikProducent;
+    @FXML private ComboBox<String> inputSilnikProducent;
     @FXML private TextField inputSilnikWaga;
     @FXML private TextField inputSilnikCena;
     @FXML private TextField inputSkrzyniaProducent;
@@ -27,6 +29,9 @@ public class NewCarController {
     private Stage dialogStage;
     private boolean isOkClicked = false;
 
+    public void init(){
+            inputSilnikProducent.getItems().addAll("BWM", "Audi", "FIAT");
+    }
 
 
     public void setDialogStage(Stage dialogStage) {
@@ -44,6 +49,7 @@ public class NewCarController {
 
     @FXML
     private void handleSave() {
+        String silnikProducent = inputSilnikProducent.getValue();
 
         try {
             if (isInputValid()) {
@@ -62,7 +68,7 @@ public class NewCarController {
                 );
 
                 Silnik silnik = new Silnik(
-                        inputSilnikProducent.getText(),
+                        silnikProducent,
                         silnikWaga,
                         silnikCena
                 );
@@ -99,9 +105,9 @@ public class NewCarController {
     private boolean isInputValid() {
         if (inputModel.getText() == null || inputModel.getText().isEmpty() ||
                 inputRejestracja.getText() == null || inputRejestracja.getText().isEmpty() ||
-                inputSilnikProducent.getText() == null || inputSilnikProducent.getText().isEmpty() ||
                 inputSilnikWaga.getText() == null || inputSilnikWaga.getText().isEmpty() ||
                 inputSilnikCena.getText() == null || inputSilnikCena.getText().isEmpty() ||
+                inputSilnikProducent.getSelectionModel() == null || inputSilnikProducent.getSelectionModel().isEmpty() ||
                 inputSkrzyniaProducent.getText() == null || inputSkrzyniaProducent.getText().isEmpty() ||
                 inputSkrzyniaWaga.getText() == null || inputSkrzyniaWaga.getText().isEmpty() ||
                 inputSkrzyniaCena.getText() == null || inputSkrzyniaCena.getText().isEmpty() ||

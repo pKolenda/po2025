@@ -118,6 +118,7 @@ public class HelloController implements Listener{
 
         NewCarController controller = loader.getController();
         controller.setDialogStage(stage);
+        controller.init();
 
         stage.showAndWait();
 
@@ -276,6 +277,7 @@ public class HelloController implements Listener{
 
         pozycjaX.clear();
         pozycjaY.clear();
+        update();
     }
 
 
@@ -283,10 +285,11 @@ public class HelloController implements Listener{
     public void clearWindow(ActionEvent actionEvent) {
         if (currentCar != null) {
 
-            String itemToRemove = currentCar.getModel() + " (" + currentCar.getNrRejestracyjny() + ")";
+            String itemToRemove = carComboBox.getSelectionModel().getSelectedItem();
 
             carList.remove(currentCar);
             carComboBox.getItems().remove(itemToRemove);
+
 
             currentCar = null;
 
@@ -294,6 +297,7 @@ public class HelloController implements Listener{
                 carComboBox.getSelectionModel().clearSelection();
                 clearAllTextFields();
                 System.out.println("Usunięto ostatni samochód. Lista jest pusta.");
+                carComboBox.getItems().clear();
             } else {
                 carComboBox.getSelectionModel().selectFirst();
                 System.out.println("Usunięto samochód. Wybrano pierwszy samochód na liście.");
@@ -301,6 +305,7 @@ public class HelloController implements Listener{
         } else {
             clearAllTextFields();
             System.out.println("Nie wybrano samochodu do usunięcia.");
+            carComboBox.getItems().clear();
         }
         update();
     }
